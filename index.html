@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GarudVyuha — Autonomous Self-Triggered Swarm Drone System</title>
+  <meta name="description" content="GarudVyuha: Autonomous Self-triggered Swarm Drone Formations for Tactical Reconnaissance. A decentralized, fault-tolerant swarm drone system with real-time AI-powered target detection using YOLOv5, LoRa mesh networking, and IMU-based self-triggering." />
+  <meta name="keywords" content="swarm drone, autonomous UAV, tactical reconnaissance, YOLOv5, IoT, LoRa mesh, self-triggered, GarudVyuha" />
+  <meta name="author" content="Nimish Pardhi" />
+  <meta property="og:title" content="GarudVyuha — Autonomous Swarm Drone System" />
+  <meta property="og:description" content="A decentralized swarm drone system with AI-powered target detection for tactical reconnaissance." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛩️</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ====== NAVIGATION ====== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <div class="logo-icon">🛩️</div>
+        GarudVyuha
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#problem" class="nav-link">Problem</a></li>
+        <li><a href="#architecture" class="nav-link">Architecture</a></li>
+        <li><a href="#how-it-works" class="nav-link">Flow</a></li>
+        <li><a href="#simulation" class="nav-link">Demo</a></li>
+        <li><a href="#tech-stack" class="nav-link">Tech Stack</a></li>
+        <li><a href="#ml-results" class="nav-link">Results</a></li>
+        <li><a href="#test-cases" class="nav-link">Tests</a></li>
+        <li><a href="#team" class="nav-link">Team</a></li>
+      </ul>
+      <button class="nav-cta" onclick="document.getElementById('achievements').scrollIntoView({behavior:'smooth'})">🏆 Achievements</button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ====== HERO SECTION ====== -->
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-radial"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="status-dot"></span>
+          SmartCom2026 · Published &amp; Copyrighted
+        </div>
+
+        <h1 class="hero-title">
+          <span class="gradient-text">GarudVyuha</span>
+        </h1>
+        <p class="hero-subtitle-line">Autonomous Self-Triggered Swarm Drone Formations<br/>for Tactical Reconnaissance</p>
+
+        <div class="hero-tagline">
+          <span id="hero-tagline-text"></span><span class="cursor-blink"></span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#architecture" class="btn-primary">
+            🏗️ Explore Architecture
+          </a>
+          <a href="#ml-results" class="btn-secondary">
+            📊 View ML Results
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-value"><span class="counter" data-target="93" data-suffix="%">0</span></div>
+            <div class="stat-label">YOLOv5 Accuracy</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-value"><span class="counter" data-target="0.42" data-suffix="s">0</span></div>
+            <div class="stat-label">Self-Trigger Delay</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-value">&lt;<span class="counter" data-target="120" data-suffix="ms">0</span></div>
+            <div class="stat-label">Detection Latency</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-value"><span class="counter" data-target="14" data-suffix="">0</span></div>
+            <div class="stat-label">Test Cases Passed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PROBLEM & OBJECTIVES ====== -->
+  <section class="section" id="problem">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Mission Context</div>
+        <h2 class="section-title">The Problem &amp; Our Objectives</h2>
+        <p class="section-subtitle">Why existing UAV systems fall short in communication-denied tactical environments — and how GarudVyuha solves it.</p>
+      </div>
+
+      <div class="problem-grid">
+        <!-- Problem Cards -->
+        <div class="glass-card problem-card reveal-left delay-1">
+          <div class="card-icon">⚠️</div>
+          <h3>Single Point of Failure</h3>
+          <p>Conventional UAVs depend on a central ground control station or mothership. In contested environments, this dependency is highly susceptible to jamming, signal loss, or system breakdown — crippling the entire mission.</p>
+        </div>
+        <div class="glass-card objectives-card reveal-right delay-1">
+          <div class="card-icon">🎯</div>
+          <h3>Objective 1: Self-Triggering Activation</h3>
+          <p>Onboard MPU6050 IMU detects free-fall and immediately activates motors and flight stabilization routines mid-air — guaranteeing mission commencement without human intervention.</p>
+        </div>
+        <div class="glass-card problem-card reveal-left delay-2">
+          <div class="card-icon">📡</div>
+          <h3>Communication-Denied Zones</h3>
+          <p>Current swarm implementations require pre-programmed or human-triggered launch sequences. In electronic warfare environments or disaster zones, external commands fail — leaving drones inoperable.</p>
+        </div>
+        <div class="glass-card objectives-card reveal-right delay-2">
+          <div class="card-icon">🔗</div>
+          <h3>Objective 2: Decentralized Coordination</h3>
+          <p>Peer-to-peer LoRa/ESP-NOW communication enables autonomous formation maintenance, collaborative search patterns, and real-time data sharing without ground dependency.</p>
+        </div>
+        <div class="glass-card problem-card reveal-left delay-3">
+          <div class="card-icon">🕐</div>
+          <h3>Human Operator Bottleneck</h3>
+          <p>Managing multiple drones simultaneously in time-sensitive tactical missions exceeds human cognitive bandwidth. Delayed responses and missed targets compromise mission-critical outcomes.</p>
+        </div>
+        <div class="glass-card objectives-card reveal-right delay-3">
+          <div class="card-icon">🛡️</div>
+          <h3>Objective 3: Fault-Tolerant Architecture</h3>
+          <p>Distributed control ensures mission continuity even if the mothership or primary command link is lost. Individual child drones independently sustain engagement and complete objectives.</p>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-row reveal delay-2">
+        <div class="glass-card stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-number"><span class="counter" data-target="93" data-suffix="%">0</span></div>
+          <div class="stat-desc">Detection Accuracy</div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-number"><span class="counter" data-target="1" data-suffix="-3s">0</span></div>
+          <div class="stat-desc">Real-Time Detection</div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon">🛩️</div>
+          <div class="stat-number"><span class="counter" data-target="10" data-suffix="+">0</span></div>
+          <div class="stat-desc">Simultaneous Drones</div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-number">₹<span class="counter" data-target="31" data-suffix="K">0</span></div>
+          <div class="stat-desc">Total Budget</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SYSTEM ARCHITECTURE ====== -->
+  <section class="section" id="architecture">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> System Design</div>
+        <h2 class="section-title">Multi-Layer System Architecture</h2>
+        <p class="section-subtitle">A modular, layered architecture designed for autonomous activation, real-time swarm coordination, and onboard target detection.</p>
+      </div>
+
+      <div class="architecture-visual reveal">
+        <!-- Layer 1: Command -->
+        <div class="arch-layer active" id="arch-layer-1">
+          <div class="layer-header">
+            <div class="layer-number">01</div>
+            <div class="layer-title">Command Layer — Ground Control Station</div>
+            <div class="layer-tag">GCS Interface</div>
+          </div>
+          <div class="layer-details">
+            <p>The Ground Control Station provides access to real-time telemetry, live FPV video downlinks, and historical mission data via a web platform. Operators define mission parameters, search boundaries, and target profiles before deployment.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Mission Planner</span>
+              <span class="layer-chip">Telemetry Dashboard</span>
+              <span class="layer-chip">Live FPV Feed</span>
+              <span class="layer-chip">Target Database</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-connector"></div>
+
+        <!-- Layer 2: Communication -->
+        <div class="arch-layer" id="arch-layer-2">
+          <div class="layer-header">
+            <div class="layer-number">02</div>
+            <div class="layer-title">Communication Layer — LoRa Mesh Network</div>
+            <div class="layer-tag">Peer-to-Peer</div>
+          </div>
+          <div class="layer-details">
+            <p>The LoRa SX1278 mesh network enables decentralized drone-to-drone communication. Drones share position vectors (x<sub>i</sub>, y<sub>i</sub>), search progress, and local sensor data — implementing swarm intelligence algorithms like Ant Colony Optimization for coordinated search.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">LoRa SX1278</span>
+              <span class="layer-chip">ESP-NOW</span>
+              <span class="layer-chip">Mesh Topology</span>
+              <span class="layer-chip">Digital Pheromones</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-connector"></div>
+
+        <!-- Layer 3: Deployment -->
+        <div class="arch-layer" id="arch-layer-3">
+          <div class="layer-header">
+            <div class="layer-number">03</div>
+            <div class="layer-title">Deployment Layer — Mothership + Child Drones</div>
+            <div class="layer-tag">Self-Trigger</div>
+          </div>
+          <div class="layer-details">
+            <p>The Mothership (Arduino Uno) manages latch control and signal monitoring. Upon signal loss or altitude trigger, the MG995 servo-driven latch releases child drones. Each child's MPU6050 IMU detects free-fall and activates motors mid-air within 0.42 seconds.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Arduino Uno</span>
+              <span class="layer-chip">MPU6050 IMU</span>
+              <span class="layer-chip">MG995 Servo Latch</span>
+              <span class="layer-chip">Pixhawk 2.4.8</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-connector"></div>
+
+        <!-- Layer 4: Mission Execution -->
+        <div class="arch-layer" id="arch-layer-4">
+          <div class="layer-header">
+            <div class="layer-number">04</div>
+            <div class="layer-title">Mission Execution — Edge AI + Swarm Intelligence</div>
+            <div class="layer-tag">YOLOv5</div>
+          </div>
+          <div class="layer-details">
+            <p>Onboard ESP32-CAM captures real-time video processed by YOLOv5 for target detection and classification of vehicles, persons, and weapons. When confidence exceeds the threshold (C ≥ C<sub>threshold</sub>), target information is broadcast to the swarm for consensus-based action.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">YOLOv5</span>
+              <span class="layer-chip">OpenCV</span>
+              <span class="layer-chip">ESP32-CAM</span>
+              <span class="layer-chip">PID Controller</span>
+              <span class="layer-chip">Edge Processing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Self-Trigger Formula Callout -->
+      <div class="formula-callout reveal delay-2">
+        <div class="formula-label">⚡ Core Innovation — Self-Trigger Activation Logic</div>
+        <div class="formula-math">
+          a<sub>net</sub> = √(a<sub>x</sub>² + a<sub>y</sub>² + a<sub>z</sub>²)
+        </div>
+        <div class="formula-math">
+          Free-fall triggered when: <span class="formula-highlight">a<sub>net</sub> ≤ θ<sub>f</sub></span> &nbsp;where&nbsp; <span class="formula-highlight">θ<sub>f</sub> ≈ 0.3g</span>
+        </div>
+        <div class="formula-desc">
+          The MPU6050 IMU continuously monitors net acceleration. When the measured acceleration drops below the free-fall threshold (≈ 0.3g), the system autonomously activates motors and PID stabilization — achieving a <strong>0.42s activation delay</strong> and <strong>1.9s full stabilization</strong>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== HOW IT WORKS ====== -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Operational Flow</div>
+        <h2 class="section-title">How GarudVyuha Works</h2>
+        <p class="section-subtitle">From autonomous mid-air deployment to coordinated swarm reconnaissance — step by step.</p>
+      </div>
+
+      <div class="flow-steps">
+        <div class="flow-step reveal delay-1">
+          <div class="step-marker">🪂</div>
+          <div class="step-content">
+            <div class="step-number">Step 01</div>
+            <h3 class="step-title">Self-Trigger Activation</h3>
+            <p class="step-desc">The mothership releases child drones via servo-driven latch. Each drone's MPU6050 IMU detects free-fall (a<sub>net</sub> ≤ 0.3g) and immediately spins up brushless motors, activating flight control within 0.42 seconds — zero human intervention required.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal delay-2">
+          <div class="step-marker">⚖️</div>
+          <div class="step-content">
+            <div class="step-number">Step 02</div>
+            <h3 class="step-title">PID Stabilization</h3>
+            <p class="step-desc">The Pixhawk 2.4.8 flight controller's PID algorithm rapidly minimizes the error between desired and actual orientation angles, achieving full flight stabilization within 1.9 seconds of activation — even from a 20m+ drop altitude.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal delay-3">
+          <div class="step-marker">👁️</div>
+          <div class="step-content">
+            <div class="step-number">Step 03</div>
+            <h3 class="step-title">AI Vision — Target Detection</h3>
+            <p class="step-desc">The ESP32-CAM captures real-time FPV video processed by the onboard YOLOv5 model. Targets (vehicles, persons, weapons) are detected, classified, and localized with 93% accuracy and sub-120ms latency per frame.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal delay-4">
+          <div class="step-marker">📡</div>
+          <div class="step-content">
+            <div class="step-number">Step 04</div>
+            <h3 class="step-title">Swarm Coordination via LoRa Mesh</h3>
+            <p class="step-desc">Upon detection, target data and position vectors are broadcast across the LoRa mesh network. Peer drones share observations, coordinate search patterns using digital pheromones, and maintain safe formation spacing through real-time data exchange.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal delay-5">
+          <div class="step-marker">🧠</div>
+          <div class="step-content">
+            <div class="step-number">Step 05</div>
+            <h3 class="step-title">Consensus Decision &amp; Action</h3>
+            <p class="step-desc">The swarm validates targets through multi-drone consensus. If confirmed — drones execute coordinated action: hover for surveillance, simulate engagement, or adjust formation. No consensus triggers continued search patterns.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal delay-5">
+          <div class="step-marker">🏠</div>
+          <div class="step-content">
+            <div class="step-number">Step 06</div>
+            <h3 class="step-title">Safe Return to Base</h3>
+            <p class="step-desc">Continuous battery monitoring triggers automatic Return-to-Base (RTB) or auto-landing when levels drop below 20%. GPS-guided navigation ensures safe recovery of all swarm units.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== LIVE SIMULATION ====== -->
+  <section class="section" id="simulation">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Interactive Demo</div>
+        <h2 class="section-title">Live System Simulation</h2>
+        <p class="section-subtitle">Experience GarudVyuha in action — interactive real-time simulations of swarm operations, self-trigger deployment, and AI target detection.</p>
+      </div>
+
+      <!-- Simulation Tabs -->
+      <div class="sim-tabs reveal">
+        <button class="sim-tab active" data-tab="swarm">
+          <span class="tab-icon">🛩️</span> Swarm Mission
+        </button>
+        <button class="sim-tab" data-tab="trigger">
+          <span class="tab-icon">🪂</span> Self-Trigger Sequence
+        </button>
+        <button class="sim-tab" data-tab="detection">
+          <span class="tab-icon">👁️</span> YOLOv5 Detection Feed
+        </button>
+      </div>
+
+      <!-- Panel 1: Swarm Mission -->
+      <div class="sim-panel active" data-panel="swarm">
+        <div class="sim-canvas-wrapper reveal">
+          <div class="scan-line"></div>
+          <canvas id="sim-swarm" width="800" height="500"></canvas>
+          <div class="sim-controls">
+            <div class="sim-status">
+              <div class="status-indicator" id="swarm-status-dot"></div>
+              <span id="swarm-status-text">STANDBY — Press Start to deploy swarm</span>
+            </div>
+            <button class="sim-btn" id="sim-swarm-btn">▶ Start Mission</button>
+          </div>
+        </div>
+        <p class="sim-description">Top-down tactical view · 5 drones · LoRa mesh communication · Real-time target detection &amp; swarm convergence</p>
+      </div>
+
+      <!-- Panel 2: Self-Trigger -->
+      <div class="sim-panel" data-panel="trigger">
+        <div class="sim-canvas-wrapper reveal">
+          <canvas id="sim-trigger" width="800" height="500"></canvas>
+          <div class="sim-controls">
+            <div class="sim-status">
+              <div class="status-indicator" id="trigger-status-dot"></div>
+              <span id="trigger-status-text">DOCKED — Ready for deployment</span>
+            </div>
+            <button class="sim-btn" id="sim-trigger-btn">🪂 Deploy Drone</button>
+          </div>
+        </div>
+        <p class="sim-description">Side-view deployment · IMU accelerometer graph · Free-fall detection at θ<sub>f</sub> ≈ 0.3g · Motor activation &amp; PID stabilization</p>
+      </div>
+
+      <!-- Panel 3: Detection Feed -->
+      <div class="sim-panel" data-panel="detection">
+        <div class="sim-canvas-wrapper reveal">
+          <canvas id="sim-detection" width="800" height="500"></canvas>
+          <div class="sim-controls">
+            <div class="sim-status">
+              <div class="status-indicator" id="detection-status-dot"></div>
+              <span id="detection-status-text">FPV OFFLINE — Start scan to begin detection</span>
+            </div>
+            <button class="sim-btn" id="sim-detection-btn">🔍 Start Scan</button>
+          </div>
+        </div>
+        <p class="sim-description">Simulated FPV aerial feed · YOLOv5 real-time inference · Bounding box detection: Person, Vehicle, Weapon, Structure</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TECH STACK ====== -->
+  <section class="section" id="tech-stack">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Engineering Stack</div>
+        <h2 class="section-title">Technology &amp; Hardware</h2>
+        <p class="section-subtitle">The precise, cost-efficient hardware and software configuration powering GarudVyuha.</p>
+      </div>
+
+      <div class="tech-categories">
+        <!-- Hardware -->
+        <div class="glass-card tech-category reveal-left delay-1">
+          <div class="category-header">
+            <div class="category-icon">🔧</div>
+            <div class="category-title">Flight Hardware</div>
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-blue);"></div>
+              <div>
+                <div class="tech-name">Pixhawk 2.4.8</div>
+                <div class="tech-role">32-bit Flight Controller</div>
+              </div>
+              <div class="tech-tooltip">Primary flight control with PID stabilization</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-green);"></div>
+              <div>
+                <div class="tech-name">Arduino Nano/Uno</div>
+                <div class="tech-role">Mothership Controller</div>
+              </div>
+              <div class="tech-tooltip">Latch control & signal monitoring</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-amber);"></div>
+              <div>
+                <div class="tech-name">MPU6050 IMU</div>
+                <div class="tech-role">Self-Trigger Sensor</div>
+              </div>
+              <div class="tech-tooltip">Free-fall detection for autonomous activation</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-purple);"></div>
+              <div>
+                <div class="tech-name">A2212 1000KV Motors</div>
+                <div class="tech-role">Brushless DC × 4</div>
+              </div>
+              <div class="tech-tooltip">Stable thrust & agile maneuvering</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-red);"></div>
+              <div>
+                <div class="tech-name">F450 Frame</div>
+                <div class="tech-role">Quadcopter Chassis</div>
+              </div>
+              <div class="tech-tooltip">Integrated PCB frame for clean wiring</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: #64748b;"></div>
+              <div>
+                <div class="tech-name">3S LiPo Battery</div>
+                <div class="tech-role">2200mAh 11.1V</div>
+              </div>
+              <div class="tech-tooltip">Power supply for all subsystems</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Communication -->
+        <div class="glass-card tech-category reveal-right delay-1">
+          <div class="category-header">
+            <div class="category-icon">📡</div>
+            <div class="category-title">Communication & Sensors</div>
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-blue);"></div>
+              <div>
+                <div class="tech-name">LoRa SX1278</div>
+                <div class="tech-role">Long-Range Mesh</div>
+              </div>
+              <div class="tech-tooltip">Decentralized peer-to-peer swarm comms</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-green);"></div>
+              <div>
+                <div class="tech-name">ESP32-CAM</div>
+                <div class="tech-role">FPV Vision Unit</div>
+              </div>
+              <div class="tech-tooltip">Real-time video streaming & processing</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-amber);"></div>
+              <div>
+                <div class="tech-name">GPS Neo-6M</div>
+                <div class="tech-role">Position Tracking</div>
+              </div>
+              <div class="tech-tooltip">Altitude & navigation verification</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-purple);"></div>
+              <div>
+                <div class="tech-name">MG995 Servo</div>
+                <div class="tech-role">Latch Mechanism</div>
+              </div>
+              <div class="tech-tooltip">Automated mid-air drone release</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-red);"></div>
+              <div>
+                <div class="tech-name">30A ESCs</div>
+                <div class="tech-role">Motor Speed Control</div>
+              </div>
+              <div class="tech-tooltip">SimonK/BLHeli firmware for smooth response</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: #64748b;"></div>
+              <div>
+                <div class="tech-name">FlySky FS-i6</div>
+                <div class="tech-role">Backup RC Control</div>
+              </div>
+              <div class="tech-tooltip">6CH transmitter & receiver for manual override</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI/ML Software -->
+        <div class="glass-card tech-category reveal-left delay-2">
+          <div class="category-header">
+            <div class="category-icon">🤖</div>
+            <div class="category-title">AI / ML Stack</div>
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-blue);"></div>
+              <div>
+                <div class="tech-name">YOLOv5</div>
+                <div class="tech-role">Object Detection</div>
+              </div>
+              <div class="tech-tooltip">93% accuracy real-time target detection</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-green);"></div>
+              <div>
+                <div class="tech-name">OpenCV</div>
+                <div class="tech-role">Computer Vision</div>
+              </div>
+              <div class="tech-tooltip">Frame processing & object tracking</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-amber);"></div>
+              <div>
+                <div class="tech-name">CNN</div>
+                <div class="tech-role">Target Classification</div>
+              </div>
+              <div class="tech-tooltip">89% accuracy feature extraction</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-purple);"></div>
+              <div>
+                <div class="tech-name">PCA / SVM</div>
+                <div class="tech-role">Dimensionality Reduction</div>
+              </div>
+              <div class="tech-tooltip">Edge optimization for onboard processing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dev Tools -->
+        <div class="glass-card tech-category reveal-right delay-2">
+          <div class="category-header">
+            <div class="category-icon">💻</div>
+            <div class="category-title">Development & Simulation</div>
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-blue);"></div>
+              <div>
+                <div class="tech-name">Python</div>
+                <div class="tech-role">Backend & ML</div>
+              </div>
+              <div class="tech-tooltip">Core programming language</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-green);"></div>
+              <div>
+                <div class="tech-name">Arduino IDE</div>
+                <div class="tech-role">Embedded Firmware</div>
+              </div>
+              <div class="tech-tooltip">C/C++ for Pixhawk & Arduino controllers</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-amber);"></div>
+              <div>
+                <div class="tech-name">Mission Planner</div>
+                <div class="tech-role">Flight Automation</div>
+              </div>
+              <div class="tech-tooltip">Telemetry & flight path planning</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-dot" style="background: var(--accent-purple);"></div>
+              <div>
+                <div class="tech-name">Microsoft AirSim</div>
+                <div class="tech-role">Simulation Platform</div>
+              </div>
+              <div class="tech-tooltip">High-fidelity drone swarm simulation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ML RESULTS ====== -->
+  <section class="section" id="ml-results">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Performance Analysis</div>
+        <h2 class="section-title">ML Model Results</h2>
+        <p class="section-subtitle">Comparative analysis of detection models. YOLOv5 was selected for its optimal balance of accuracy and real-time edge processing speed.</p>
+      </div>
+
+      <div class="ml-grid">
+        <!-- Bar Chart: Model Comparison -->
+        <div class="glass-card ml-card reveal-left">
+          <div class="card-title">📊 Model Accuracy Comparison</div>
+          <div class="bar-chart" id="bar-chart">
+            <div class="bar-item">
+              <div class="bar-label">YOLOv5</div>
+              <div class="bar-track">
+                <div class="bar-fill yolo" data-width="93">93%</div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Faster R-CNN</div>
+              <div class="bar-track">
+                <div class="bar-fill faster-rcnn" data-width="91">91%</div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">CNN</div>
+              <div class="bar-track">
+                <div class="bar-fill cnn" data-width="89">89%</div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">VGG-16</div>
+              <div class="bar-track">
+                <div class="bar-fill vgg" data-width="86">86%</div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">KNN</div>
+              <div class="bar-track">
+                <div class="bar-fill knn" data-width="78">78%</div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">SVM</div>
+              <div class="bar-track">
+                <div class="bar-fill svm" data-width="74">74%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Radar Chart -->
+        <div class="glass-card ml-card reveal-right">
+          <div class="card-title">🎯 Class-wise Accuracy Radar</div>
+          <div class="radar-container">
+            <canvas id="radar-chart" width="300" height="300"></canvas>
+          </div>
+        </div>
+
+        <!-- Confusion Matrix -->
+        <div class="glass-card ml-card reveal-left delay-2">
+          <div class="card-title">🔢 Normalized Confusion Matrix</div>
+          <table class="confusion-matrix">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Person</th>
+                <th>Weapon</th>
+                <th>Vehicle</th>
+                <th>Background</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cm-label">Person</td>
+                <td class="cm-high">0.92</td>
+                <td class="cm-low">0.03</td>
+                <td class="cm-low">0.02</td>
+                <td class="cm-low">0.03</td>
+              </tr>
+              <tr>
+                <td class="cm-label">Weapon</td>
+                <td class="cm-low">0.04</td>
+                <td class="cm-high">0.89</td>
+                <td class="cm-low">0.03</td>
+                <td class="cm-low">0.04</td>
+              </tr>
+              <tr>
+                <td class="cm-label">Vehicle</td>
+                <td class="cm-low">0.02</td>
+                <td class="cm-low">0.02</td>
+                <td class="cm-high">0.93</td>
+                <td class="cm-low">0.03</td>
+              </tr>
+              <tr>
+                <td class="cm-label">Background</td>
+                <td class="cm-low">0.05</td>
+                <td class="cm-low">0.03</td>
+                <td class="cm-low">0.04</td>
+                <td class="cm-high">0.88</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Performance Highlights -->
+        <div class="glass-card ml-card reveal-right delay-2">
+          <div class="card-title">⚡ Key Performance Metrics</div>
+          <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 8px;">
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(0,212,255,0.04); border-radius: 12px; border: 1px solid rgba(0,212,255,0.1);">
+              <div style="font-size: 2rem;">🏆</div>
+              <div>
+                <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--accent-blue);">YOLOv5 — Primary Model</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">93% accuracy · Real-time edge detection · Multi-target per frame</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(0,255,136,0.04); border-radius: 12px; border: 1px solid rgba(0,255,136,0.1);">
+              <div style="font-size: 2rem;">🧠</div>
+              <div>
+                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--accent-green);">Hybrid Architecture</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">YOLOv5 for detection + CNN for target classification</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(255,107,53,0.04); border-radius: 12px; border: 1px solid rgba(255,107,53,0.1);">
+              <div style="font-size: 2rem;">⏱️</div>
+              <div>
+                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--accent-amber);">Sub-120ms Latency</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">Real-time processing with multiple targets per frame</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(168,85,247,0.04); border-radius: 12px; border: 1px solid rgba(168,85,247,0.1);">
+              <div style="font-size: 2rem;">📐</div>
+              <div>
+                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--accent-purple);">640×640 Input Resolution</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">Grid-based detection with anchor box regression & CIoU loss</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ML Metrics Summary -->
+      <div class="ml-metrics reveal delay-3">
+        <div class="glass-card metric-card">
+          <div class="metric-value"><span class="counter" data-target="0.42" data-suffix="s">0</span></div>
+          <div class="metric-label">Self-Trigger Delay</div>
+        </div>
+        <div class="glass-card metric-card">
+          <div class="metric-value"><span class="counter" data-target="1.9" data-suffix="s">0</span></div>
+          <div class="metric-label">Stabilization Time</div>
+        </div>
+        <div class="glass-card metric-card">
+          <div class="metric-value">&lt;<span class="counter" data-target="120" data-suffix="ms">0</span></div>
+          <div class="metric-label">Processing Latency</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== KEY FEATURES ====== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Capabilities</div>
+        <h2 class="section-title">Key Features</h2>
+        <p class="section-subtitle">Six defining capabilities that make GarudVyuha a mission-ready autonomous swarm system.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="glass-card feature-card reveal delay-1">
+          <div class="feature-icon">🪂</div>
+          <h3>Self-Triggering Mid-Air</h3>
+          <p>IMU-based free-fall detection activates motors and stabilization autonomously within 0.42 seconds — no human command needed.</p>
+        </div>
+        <div class="glass-card feature-card reveal delay-2">
+          <div class="feature-icon">🔗</div>
+          <h3>Decentralized Swarm</h3>
+          <p>LoRa mesh network enables peer-to-peer coordination, formation control, and collaborative search without ground dependency.</p>
+        </div>
+        <div class="glass-card feature-card reveal delay-3">
+          <div class="feature-icon">🛡️</div>
+          <h3>Fault-Tolerant Design</h3>
+          <p>Distributed control ensures mission continuity. If the mothership or any drone is lost, the swarm reconfigures and continues.</p>
+        </div>
+        <div class="glass-card feature-card reveal delay-1">
+          <div class="feature-icon">👁️</div>
+          <h3>Real-Time AI Detection</h3>
+          <p>YOLOv5 + OpenCV provides 93% accuracy target detection of vehicles, persons, and weapons with sub-120ms latency.</p>
+        </div>
+        <div class="glass-card feature-card reveal delay-2">
+          <div class="feature-icon">📡</div>
+          <h3>Mesh Communication</h3>
+          <p>LoRa SX1278 enables long-range, low-power peer-to-peer data sharing even in jamming or signal-denied environments.</p>
+        </div>
+        <div class="glass-card feature-card reveal delay-3">
+          <div class="feature-icon">💰</div>
+          <h3>Cost-Efficient &amp; Scalable</h3>
+          <p>Built with affordable components (Arduino, MPU6050, ESP32-CAM). Total system cost ₹31,000 — scalable to large swarms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TEST CASES ====== -->
+  <section class="section" id="test-cases">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Validation</div>
+        <h2 class="section-title">System Test Cases</h2>
+        <p class="section-subtitle">14 structured test cases validating core functionalities, safety mechanisms, and failure handling.</p>
+      </div>
+
+      <div class="test-cases-table-wrapper reveal">
+        <table class="test-cases-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Test Objective</th>
+              <th>Condition / Input</th>
+              <th>Expected Result</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tc-id">TC-01</td>
+              <td class="tc-objective">Self-Trigger Activation</td>
+              <td>Child drone released; IMU detects free-fall</td>
+              <td>Motors activate and stabilize mid-air</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-02</td>
+              <td class="tc-objective">Swarm Communication via LoRa</td>
+              <td>Drones in LoRa range</td>
+              <td>Exchange position vectors and confirm mesh</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-03</td>
+              <td class="tc-objective">Target Detection (YOLOv5)</td>
+              <td>FPV detects vehicle/person</td>
+              <td>YOLOv5 detects target with threshold met</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-04</td>
+              <td class="tc-objective">Low-Light Detection Failure</td>
+              <td>Low-light FPV feed</td>
+              <td>Detection fails; logs event</td>
+              <td><span class="status-badge fail">✗ Fail</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-05</td>
+              <td class="tc-objective">Occlusion Test</td>
+              <td>Target partially covered</td>
+              <td>Logs unreliable detection; no alert</td>
+              <td><span class="status-badge fail">✗ Fail</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-06</td>
+              <td class="tc-objective">LoRa Communication Loss</td>
+              <td>Out of range or jammed</td>
+              <td>Drone enters autonomous mode; logs loss</td>
+              <td><span class="status-badge fail">✗ Fail</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-07</td>
+              <td class="tc-objective">Mechanical Latch Release</td>
+              <td>Mothership triggers release</td>
+              <td>Latch opens; child drone self-triggers</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-08</td>
+              <td class="tc-objective">Real-Time Latency Test</td>
+              <td>Multiple targets per frame</td>
+              <td>Latency &lt;120ms</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-09</td>
+              <td class="tc-objective">Collision Avoidance</td>
+              <td>Drones too close</td>
+              <td>Adjust trajectory via LoRa</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-10</td>
+              <td class="tc-objective">Battery Critical Condition</td>
+              <td>Battery &lt;20%</td>
+              <td>RTB or Auto-land</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-11</td>
+              <td class="tc-objective">Target Misinformation</td>
+              <td>Non-target resembling target</td>
+              <td>No alert; logs unverified</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-12</td>
+              <td class="tc-objective">FPV Feed Loss</td>
+              <td>Camera feed interrupted</td>
+              <td>Logs camera error</td>
+              <td><span class="status-badge fail">✗ Fail</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-13</td>
+              <td class="tc-objective">Formation Reconfiguration</td>
+              <td>One drone fails</td>
+              <td>Recalculate formation</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+              <td class="tc-id">TC-14</td>
+              <td class="tc-objective">High Altitude Deployment</td>
+              <td>Drop &gt;20m</td>
+              <td>Stabilize within 2 seconds</td>
+              <td><span class="status-badge pass">✓ Pass</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="test-summary reveal delay-2">
+        <div class="glass-card test-summary-card">
+          <div class="summary-value">14</div>
+          <div class="summary-label">Total Tests</div>
+        </div>
+        <div class="glass-card test-summary-card">
+          <div class="summary-value">10</div>
+          <div class="summary-label">Passed</div>
+        </div>
+        <div class="glass-card test-summary-card">
+          <div class="summary-value">4</div>
+          <div class="summary-label">Expected Failures</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TEAM ====== -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> The Squad</div>
+        <h2 class="section-title">Team GarudVyuha</h2>
+        <p class="section-subtitle">GHRCEM Pune · Department of Data Science · 2025-26</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="glass-card team-card reveal delay-1">
+          <div class="avatar">AK</div>
+          <h3>Aaditya Khillare</h3>
+          <div class="role">Hardware & Flight Systems</div>
+          <p class="bio">Drone assembly, Pixhawk configuration, PID tuning, and flight testing.</p>
+        </div>
+        <div class="glass-card team-card reveal delay-2">
+          <div class="avatar">DJ</div>
+          <h3>Dibyakanta Jena</h3>
+          <div class="role">Swarm Communication</div>
+          <p class="bio">LoRa mesh network, ESP-NOW protocol integration, and swarm coordination algorithms.</p>
+        </div>
+        <div class="glass-card team-card reveal delay-3">
+          <div class="avatar">NP</div>
+          <h3>Nimish Pardhi</h3>
+          <div class="role">AI/ML & Vision Systems</div>
+          <p class="bio">YOLOv5 training, OpenCV integration, edge AI optimization, and target detection pipeline.</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;" class="reveal delay-4">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+          <strong style="color: var(--text-primary);">Guide:</strong> Prof. Arti Patle &amp; Prof. Deepika Ajalkar
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ACHIEVEMENTS ====== -->
+  <section class="section" id="achievements">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><span class="badge-dot"></span> Recognition</div>
+        <h2 class="section-title">Achievements</h2>
+        <p class="section-subtitle">Milestones and recognitions earned through the GarudVyuha project.</p>
+      </div>
+
+      <div class="achievements-timeline">
+        <div class="achievement-item reveal delay-1">
+          <div class="ach-icon">📄</div>
+          <div>
+            <h3>Research Paper Published</h3>
+            <p>"GarudVyuha: Autonomous Self-Triggered Swarm Drone Formations for Tactical Reconnaissance" — SmartCom2026</p>
+            <div class="ach-badge">Accepted</div>
+          </div>
+        </div>
+        <div class="achievement-item reveal delay-2">
+          <div class="ach-icon">©️</div>
+          <div>
+            <h3>Copyright Registration</h3>
+            <p>Intellectual property registered with the Copyright Office, Government of India.</p>
+            <div class="ach-badge">Registered</div>
+          </div>
+        </div>
+        <div class="achievement-item reveal delay-3">
+          <div class="ach-icon">💰</div>
+          <div>
+            <h3>₹31,000 Sponsorship Secured</h3>
+            <p>Full hardware procurement funded through project sponsorship for Pixhawk, LoRa modules, motors, and flight components.</p>
+            <div class="ach-badge">Funded</div>
+          </div>
+        </div>
+        <div class="achievement-item reveal delay-4">
+          <div class="ach-icon">🏅</div>
+          <div>
+            <h3>Competition Participation</h3>
+            <p>Presented and demonstrated at multiple inter-collegiate technical events with participation certificates earned.</p>
+            <div class="ach-badge">Certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="mailto:nimishpardhi9010@gmail.com">📧 Email</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener">💼 LinkedIn</a>
+        <a href="https://github.com" target="_blank" rel="noopener">🐙 GitHub</a>
+      </div>
+      <p class="footer-credit">
+        Built by <span class="name-highlight">Nimish Pardhi</span> · GHRCEM Pune · Department of Data Science · 2025-26
+      </p>
+      <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 8px;">
+        GarudVyuha — Autonomous Self-Triggered Swarm Drone Formations for Tactical Reconnaissance
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="simulation.js"></script>
+</body>
+</html>
